@@ -13,7 +13,8 @@ class GameScene: SKScene {
     enum GameState:Int {
         case selectPiece
         case movePiece
-        case enemyTurn
+        case enemySelect
+        case enemyMove
     }
     
     var viewSize:CGSize!
@@ -40,6 +41,7 @@ class GameScene: SKScene {
     var enemyPointLabel:SKLabelNode!
     var wait:SKLabelNode!
     var selectPiece:SKSpriteNode!
+    var touchName = ""
     
     let dir1 = [0,0,-1,1]
     let dir2 = [-1,1,0,0]
@@ -62,28 +64,18 @@ class GameScene: SKScene {
                 
                 switch gameState! {
                 case GameState.selectPiece:
-                    if let selectName = name.rangeOfString("player") {
-                        selectPiece = location as SKSpriteNode
-                        selectPiece.texture = playerPieceHoverImage
-                        gameState = GameState.movePiece
-                        selectPiece.name = name
-                        self.searchCanMove(name)
-                    }
+                    self.selectState(location,name,"player",playerPieceHoverImage,GameState.movePiece)
+                    
                 case GameState.movePiece:
-                    if name == selectPiece.name {
-                        selectPiece.texture = playerPieceImage
-                        gameState = GameState.selectPiece
-                        canMove?.removeAllChildren()
-                    }else if let selectName = name.rangeOfString("canMove") {
-                        selectPiece.texture = playerPieceImage
-                        gameState = GameState.enemyTurn
-                        canMove?.removeAllChildren()
-                        self.move(selectPiece,name)
-                    }
-                case GameState.enemyTurn:
-                    gameState = GameState.movePiece
-                    println("enemy turn")
-                default:
+                    self.moveState(name,playerPieceImage,GameState.selectPiece,GameState.enemySelect)
+                    
+                case GameState.enemySelect:
+                    self.selectState(location,name, "enemy", enemyPieceHoverImage, GameState.enemyMove)
+                    
+                case GameState.enemyMove:
+                    self.moveState(name, enemyPieceImage, GameState.enemySelect, GameState.selectPiece)
+                 
+                    default:
                     println("error")
                 }
             }
@@ -146,8 +138,11 @@ class GameScene: SKScene {
                     enemyPiece.anchorPoint = CGPointMake(-0.25, 0.9)
                     enemyPiece.setScale(scale)
                     enemyPiece.position = self.setPos(h,w)
+                    enemyPiece.name = "enemy\(w)"
                     enemyPiece.zPosition = 1
                     self.addChild(enemyPiece)
+                    
+                    board[h][w] = enemyPiece.name!
                 default:
                     println("empty")
                 }
@@ -242,4 +237,27 @@ class GameScene: SKScene {
         
     }
     
+    func selectState(location:SKNode,_ name:String,_ pieceName:String,_ image:SKTexture,_ nextState:GameState){
+        if let selectName = name.rangeOfString(pieceName) {
+            selectPiece = location as SKSpriteNode
+            selectPiece.texture = image
+            gameState = nextState
+            touchName = name
+            self.searchCanMove(name)
+        }
+    }
+    
+    func moveState(name:String,_ image:SKTexture,_ backState:GameState,_ nextState:GameState){
+        if name == touchName {
+            selectPiece.texture = image
+            gameState = backState
+            canMove?.removeAllChildren()
+        }else if let selectName = name.rangeOfString("canMove") {
+            selectPiece.texture = image
+            gameState = nextState
+            canMove?.removeAllChildren()
+            self.move(selectPiece,name)
+        }
+
+    }
 }
