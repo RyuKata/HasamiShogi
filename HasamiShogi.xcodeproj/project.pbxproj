@@ -15,6 +15,12 @@
 		1FB238551A85A94600E8F9EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238541A85A94600E8F9EF /* Images.xcassets */; };
 		1FB238581A85A94600E8F9EF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238561A85A94600E8F9EF /* LaunchScreen.xib */; };
 		1FB238641A85A94600E8F9EF /* HasamiShogiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB238631A85A94600E8F9EF /* HasamiShogiTests.swift */; };
+		1FB2386F1A85AE7F00E8F9EF /* ban.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2386E1A85AE7F00E8F9EF /* ban.png */; };
+		1FB238721A85AEFC00E8F9EF /* enemy_hover_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238701A85AEFC00E8F9EF /* enemy_hover_r.png */; };
+		1FB238731A85AEFC00E8F9EF /* enemy_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238711A85AEFC00E8F9EF /* enemy_r.png */; };
+		1FB238761A85AF0700E8F9EF /* player_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238741A85AF0700E8F9EF /* player_hover.png */; };
+		1FB238771A85AF0700E8F9EF /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238751A85AF0700E8F9EF /* player.png */; };
+		1FB238791A85AF1B00E8F9EF /* masu_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FB238781A85AF1B00E8F9EF /* masu_hover.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,12 @@
 		1FB2385D1A85A94600E8F9EF /* HasamiShogiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HasamiShogiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FB238621A85A94600E8F9EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FB238631A85A94600E8F9EF /* HasamiShogiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasamiShogiTests.swift; sourceTree = "<group>"; };
+		1FB2386E1A85AE7F00E8F9EF /* ban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ban.png; path = ../../../../Downloads/HasamiSyogi/hasamishogi/img/ban.png; sourceTree = "<group>"; };
+		1FB238701A85AEFC00E8F9EF /* enemy_hover_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enemy_hover_r.png; path = ../../../../Downloads/HasamiSyogi/hasamishogi/img/enemy_hover_r.png; sourceTree = "<group>"; };
+		1FB238711A85AEFC00E8F9EF /* enemy_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enemy_r.png; path = ../../../../Downloads/HasamiSyogi/hasamishogi/img/enemy_r.png; sourceTree = "<group>"; };
+		1FB238741A85AF0700E8F9EF /* player_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player_hover.png; path = ../../../../Downloads/HasamiSyogi/hasamishogi/img/player_hover.png; sourceTree = "<group>"; };
+		1FB238751A85AF0700E8F9EF /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = player.png; path = ../../../../Downloads/HasamiSyogi/hasamishogi/img/player.png; sourceTree = "<group>"; };
+		1FB238781A85AF1B00E8F9EF /* masu_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = masu_hover.png; path = ../../../../Downloads/HasamiSyogi/hasamishogi/img/masu_hover.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +96,7 @@
 				1FB238491A85A94600E8F9EF /* AppDelegate.swift */,
 				1FB2384B1A85A94600E8F9EF /* GameScene.sks */,
 				1FB2384D1A85A94600E8F9EF /* GameScene.swift */,
+				1FB2386D1A85AE5E00E8F9EF /* Sprites */,
 				1FB2384F1A85A94600E8F9EF /* GameViewController.swift */,
 				1FB238511A85A94600E8F9EF /* Main.storyboard */,
 				1FB238541A85A94600E8F9EF /* Images.xcassets */,
@@ -116,6 +129,19 @@
 				1FB238621A85A94600E8F9EF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1FB2386D1A85AE5E00E8F9EF /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				1FB238781A85AF1B00E8F9EF /* masu_hover.png */,
+				1FB238741A85AF0700E8F9EF /* player_hover.png */,
+				1FB238751A85AF0700E8F9EF /* player.png */,
+				1FB238701A85AEFC00E8F9EF /* enemy_hover_r.png */,
+				1FB238711A85AEFC00E8F9EF /* enemy_r.png */,
+				1FB2386E1A85AE7F00E8F9EF /* ban.png */,
+			);
+			name = Sprites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +224,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB238721A85AEFC00E8F9EF /* enemy_hover_r.png in Resources */,
+				1FB2386F1A85AE7F00E8F9EF /* ban.png in Resources */,
+				1FB238791A85AF1B00E8F9EF /* masu_hover.png in Resources */,
+				1FB238771A85AF0700E8F9EF /* player.png in Resources */,
 				1FB238581A85A94600E8F9EF /* LaunchScreen.xib in Resources */,
+				1FB238761A85AF0700E8F9EF /* player_hover.png in Resources */,
+				1FB238731A85AEFC00E8F9EF /* enemy_r.png in Resources */,
 				1FB238551A85A94600E8F9EF /* Images.xcassets in Resources */,
 				1FB2384C1A85A94600E8F9EF /* GameScene.sks in Resources */,
 				1FB238531A85A94600E8F9EF /* Main.storyboard in Resources */,
