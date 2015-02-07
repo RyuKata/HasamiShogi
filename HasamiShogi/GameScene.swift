@@ -159,6 +159,20 @@ class GameScene: SKScene {
        return CGPointMake(CGFloat(space) + CGFloat(w) * pieceSize,CGFloat(space) + CGFloat(h-4) * pieceSize + boardSprite.position.y)
     }
     
+    func findPiece(piece:SKSpriteNode) -> (Int,Int) {
+        var index = (0,0)
+        
+        for h in 0..<boardSize {
+            for w in 0..<boardSize {
+                if board[h][w] == piece.name {
+                    index = (h,w)
+                }
+            }
+        }
+        
+        return index
+    }
+    
     func displayLabel(){
         playerPointLabel = SKLabelNode(text: "先手:\(playerPoint)")
         playerPointLabel.position = CGPointMake(playerPointLabel.frame.width, 10)
@@ -220,9 +234,12 @@ class GameScene: SKScene {
         let str = floorName as NSString
         let index1 = str.substringWithRange(NSRange(location: 7, length: 1)).toInt()
         let index2 = str.substringWithRange(NSRange(location: 8, length: 1)).toInt()
+        var pieceIndex = self.findPiece(piece)
         
-        //TODO:プレイヤーの位置を empty に
+        board[pieceIndex.0][pieceIndex.1] = "empty"
         board[index1!][index2!] = piece.name!
         piece.position = self.setPos(index1!, index2!)
+        
     }
+    
 }
