@@ -9,37 +9,54 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    enum GameState:Int {
+        case selectPiece
+        case movePiece
+        case enemyTurn
+    }
+
+    enum boardState:Int {
+        case playerPiece
+        case enemyPiece
+        case empty
+    }
+    
+    let boardSize = 9
+    var playerPoint = 0
+    var enemyPoint = 0
+    var board = [[boardState]]()
+    
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+        self.initBoard()
         
-        self.addChild(myLabel)
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch begins */
         
-        for touch: AnyObject in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
-        }
     }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+    }
+    
+    func initBoard(){
+        for h in 0..<boardSize {
+            var boardCol = [boardState]()
+            
+            for w in 0..<boardSize {
+                if h == 0 {
+                    boardCol.append(boardState.playerPiece)
+                }else if h == boardSize - 1 {
+                    boardCol.append(boardState.enemyPiece)
+                }else {
+                    boardCol.append(boardState.empty)
+                }
+            }
+        }
+    }
+    
+    func displayBoard(){
+        
     }
 }
