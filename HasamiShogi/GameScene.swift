@@ -75,14 +75,16 @@ class GameScene: SKScene {
                     
                 case GameState.movePiece:
                     self.moveState(name,playerPieceImage,GameState.selectPiece,GameState.enemySelect,senteMoveSound)
+                    self.checkGet("player")
                     
                 case GameState.enemySelect:
                     self.selectState(location,name, "enemy", enemyPieceHoverImage, GameState.enemyMove)
+                    self.checkGet("enemy")
                     
                 case GameState.enemyMove:
                     self.moveState(name, enemyPieceImage, GameState.enemySelect, GameState.selectPiece,goteMoveSound)
                  
-                    default:
+                default:
                     println("error")
                 }
             }
@@ -269,6 +271,44 @@ class GameScene: SKScene {
         }else {
             self.runAction(cannotPutSpund)
         }
-
+    }
+    
+    func checkGet(turn:String){
+        let piecePos = self.findPiece(selectPiece)
+        var player1 = ""
+        var player2 = ""
+        
+        if let name = turn.rangeOfString("player") {
+            player1 = "player"
+            player2 = "enemy"
+        }else {
+            player1 = "enemy"
+            player2 = "player"
+        }
+        
+        for d in 0..<4 {
+            if piecePos.0 + 2 * dir1[d] >= 0 && piecePos.0 + 2 * dir1[d] < boardSize && piecePos.1 + 2 * dir2[d] >= 0 && piecePos.1 + 2 * dir2[d] < boardSize {
+                if let turnPlayer = board[piecePos.0 + dir1[d]][piecePos.1 + dir2[d]].rangeOfString(player2) {
+                    if let notTurnPlayer = board[piecePos.0 + 2 * dir1[d]][piecePos.1 + 2 * dir2[d]].rangeOfString(player1) {
+                        //TODO: remove
+                        
+                        board[piecePos.0 + dir1[d]][piecePos.1 + dir2[d]] = "empty"
+                        self.setScore(turn);
+                    }
+                }
+            }
+        }
+    }
+    
+    func setScore(turn:String){
+        
+        if turn == "player" {
+            playerPoint++
+        }else {
+            enemyPoint++
+        }
+        
+        playerPointLabel = SKLabelNode(text: "先手:\(playerPoint)")
+        enemyPointLabel = SKLabelNode(text: "後手:\(enemyPoint)")
     }
 }
