@@ -36,6 +36,13 @@ class GameScene: SKScene {
     let enemyPieceHoverImage = SKTexture(imageNamed: "enemy_hover_r")
     let masuHoverImage = SKTexture(imageNamed: "masu_hover")
     
+    let senteMoveSound = SKAction.playSoundFileNamed("senteaction.wav", waitForCompletion: false)
+    let goteMoveSound = SKAction.playSoundFileNamed("goteaction.wav", waitForCompletion: false)
+    let cannotPutSpund = SKAction.playSoundFileNamed("cannotput.wav", waitForCompletion: false)
+    let getSound = SKAction.playSoundFileNamed("get.wav", waitForCompletion: false)
+    let finishSound = SKAction.playSoundFileNamed("gamefinish.wav", waitForCompletion: false)
+
+    
     var boardSprite:SKSpriteNode!
     var playerPointLabel:SKLabelNode!
     var enemyPointLabel:SKLabelNode!
@@ -67,13 +74,13 @@ class GameScene: SKScene {
                     self.selectState(location,name,"player",playerPieceHoverImage,GameState.movePiece)
                     
                 case GameState.movePiece:
-                    self.moveState(name,playerPieceImage,GameState.selectPiece,GameState.enemySelect)
+                    self.moveState(name,playerPieceImage,GameState.selectPiece,GameState.enemySelect,senteMoveSound)
                     
                 case GameState.enemySelect:
                     self.selectState(location,name, "enemy", enemyPieceHoverImage, GameState.enemyMove)
                     
                 case GameState.enemyMove:
-                    self.moveState(name, enemyPieceImage, GameState.enemySelect, GameState.selectPiece)
+                    self.moveState(name, enemyPieceImage, GameState.enemySelect, GameState.selectPiece,goteMoveSound)
                  
                     default:
                     println("error")
@@ -113,6 +120,7 @@ class GameScene: SKScene {
         boardSprite = SKSpriteNode(texture: boardImage)
         boardSprite.setScale(scale)
         boardSprite.position = CGPointMake(viewSize.width / 2, viewSize.height / 2)
+        boardSprite.name = "board"
         boardSprite.zPosition = -2
         self.addChild(boardSprite)
         self.addChild(canMove)
@@ -247,16 +255,19 @@ class GameScene: SKScene {
         }
     }
     
-    func moveState(name:String,_ image:SKTexture,_ backState:GameState,_ nextState:GameState){
+    func moveState(name:String,_ image:SKTexture,_ backState:GameState,_ nextState:GameState,_ actionSound:SKAction){
         if name == touchName {
             selectPiece.texture = image
             gameState = backState
             canMove?.removeAllChildren()
         }else if let selectName = name.rangeOfString("canMove") {
+            self.runAction(actionSound)
             selectPiece.texture = image
             gameState = nextState
             canMove?.removeAllChildren()
             self.move(selectPiece,name)
+        }else {
+            self.runAction(cannotPutSpund)
         }
 
     }
